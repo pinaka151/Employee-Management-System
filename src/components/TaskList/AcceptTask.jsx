@@ -1,7 +1,6 @@
 import React from 'react'
 
-const AcceptTask = ({data}) => {
-  console.log(data)
+const AcceptTask = ({data, onTaskAction, onFailTask}) => {
   return (
     <article className="task-card task-active">
       <div className="task-card-top">
@@ -11,8 +10,8 @@ const AcceptTask = ({data}) => {
       <h2>{data.title}</h2>
       <p className="task-description hide-scrollbar">{data.description}</p>
       <div className="task-actions">
-        <button className="task-action action-success">Mark as Completed</button>
-        <button className="task-action action-danger">Mark as Failed</button>
+        <button type="button" className="task-action action-success" onClick={onTaskAction}>Mark as Completed</button>
+        <button type="button" className="task-action action-danger" onClick={onFailTask}>Mark as Failed</button>
       </div>
     </article>
   )

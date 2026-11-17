@@ -17,7 +17,7 @@ const EmployeeDashboard = (props) => {
         <TaskListNumbers data={props.data} />
         <section className="tasks-section">
           <h2 className="section-label">Your tasks</h2>
-          <TaskList data={props.data} />
+          <TaskList data={props.data} onTaskAction={props.onTaskAction} />
         </section>
       </main>
     </div>

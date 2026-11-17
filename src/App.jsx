@@ -10,6 +10,52 @@ const App = () => {
   const [loggedInUserData, setLoggedInUserData] = useState(null)
   const [userData,SetUserData] = useContext(Authcontext);
 
+  const handleTaskAction = (taskIndex, action) => {
+    const updatedEmployees = userData.map((employee) => {
+      if (employee.id !== loggedInUserData?.id) {
+        return employee
+      }
+
+      const task = employee.tasks[taskIndex]
+      const isAcceptingNewTask = action === 'active' && task?.newTask
+      const isFinishingActiveTask = ['completed', 'failed'].includes(action) && task?.active
+      if (!isAcceptingNewTask && !isFinishingActiveTask) {
+        return employee
+      }
+
+      const updatedTasks = employee.tasks.map((employeeTask, index) => (
+        index === taskIndex
+          ? {
+              ...employeeTask,
+              newTask: false,
+              active: action === 'active',
+              completed: action === 'completed',
+              failed: action === 'failed',
+            }
+          : employeeTask
+      ))
+      const updatedTaskCounts = { ...employee.taskCounts }
+      const previousStatus = isAcceptingNewTask ? 'newTask' : 'active'
+      updatedTaskCounts[previousStatus] = Math.max(0, (Number(updatedTaskCounts[previousStatus]) || 0) - 1)
+      updatedTaskCounts[action] = (Number(updatedTaskCounts[action]) || 0) + 1
+
+      return {
+        ...employee,
+        tasks: updatedTasks,
+        taskCounts: updatedTaskCounts,
+      }
+    })
+    const updatedEmployee = updatedEmployees.find((employee) => employee.id === loggedInUserData?.id)
+    if (!updatedEmployee) {
+      return
+    }
+
+    SetUserData(updatedEmployees)
+    setLoggedInUserData(updatedEmployee)
+    localStorage.setItem('employees', JSON.stringify(updatedEmployees))
+    localStorage.setItem('loggedInUser', JSON.stringify({ role: 'employee', data: updatedEmployee }))
+  }
+
   useEffect(() => {
       const loggedInUser = localStorage.getItem("loggedInUser");
       if (loggedInUser) {
@@ -50,7 +96,7 @@ const App = () => {
     <>
       {!user ? <Login handlelogin={handlelogin}  /> : ""}
       {user === "admin" && <AdminDashboard changeUser = {setUser} firstName = {"vipin"} />}
-      {user === "employee" && <EmployeeDashboard changeUser = {setUser} data = {loggedInUserData} />}
+      {user === "employee" && <EmployeeDashboard changeUser = {setUser} data = {loggedInUserData} onTaskAction={handleTaskAction} />}
     </>
   );
 };

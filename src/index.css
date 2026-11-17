@@ -39,6 +39,20 @@ button {
   color: inherit;
 }
 
+button:not(:disabled) {
+  cursor: pointer;
+  transition: transform .16s ease, filter .16s ease, background-color .16s ease, border-color .16s ease, box-shadow .16s ease;
+}
+
+button:not(:disabled):active {
+  transform: scale(.98);
+}
+
+button:focus-visible {
+  outline: 2px solid #a77cff;
+  outline-offset: 3px;
+}
+
 #TaskList::-webkit-scrollbar,
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
@@ -47,4 +61,14 @@ button {
 .hide-scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button:not(:disabled) {
+    transition: none;
+  }
+
+  button:not(:disabled):active {
+    transform: none;
+  }
 }

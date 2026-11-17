@@ -1,6 +1,6 @@
 import React from 'react'
 
-const NewTask = ({data}) => {
+const NewTask = ({data, onAcceptTask}) => {
   return (
     <article className="task-card task-new">
       <div className="task-card-top">
@@ -9,7 +9,7 @@ const NewTask = ({data}) => {
       </div>
       <h2>{data.title}</h2>
       <p className="task-description hide-scrollbar">{data.description}</p>
-      <button className="task-action">Accept Task</button>
+      <button type="button" className="task-action" onClick={onAcceptTask}>Accept Task</button>
     </article>
   )
 }

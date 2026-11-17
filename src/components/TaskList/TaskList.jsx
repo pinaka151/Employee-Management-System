@@ -4,19 +4,19 @@ import NewTask from './NewTask'
 import FailedTask from './FailedTask'
 import CompleteTask from './CompleteTask'
 
-const TaskList = ({data}) => {
+const TaskList = ({data, onTaskAction}) => {
   // console.log(data)
   return (
     <div id='TaskList' className='task-list hide-scrollbar'>
         {data.tasks.map((elem,idx )=>{
           if(elem.active){
-            return <AcceptTask key={idx} data = {elem} />
+            return <AcceptTask key={idx} data = {elem} onTaskAction={() => onTaskAction(idx, 'completed')} onFailTask={() => onTaskAction(idx, 'failed')} />
           }
           if(elem.failed){
             return <FailedTask key={idx} data = {elem} />
           }
           if(elem.newTask){
-            return <NewTask key={idx} data = {elem} />
+            return <NewTask key={idx} data = {elem} onAcceptTask={() => onTaskAction(idx, 'active')} />
           }
           if(elem.completed){
             return <CompleteTask key={idx} data = {elem} />

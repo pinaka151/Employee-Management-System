@@ -386,6 +386,8 @@
 
 .logout-button:hover {
   background: rgba(219, 44, 98, .32);
+  filter: brightness(1.08);
+  transform: translateY(-1px);
 }
 
 .dashboard-main {
@@ -540,6 +542,14 @@
 
 .task-action.action-success { color: #b6f6dc; background: rgba(25, 169, 117, .2); }
 .task-action.action-danger { color: #ffc0ce; background: rgba(218, 59, 96, .2); }
+.task-new .task-action:hover,
+.task-active .task-action:hover,
+.form-back-button:hover,
+.create-task-trigger:hover,
+.back-link:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
 .task-card.task-active { border-color: rgba(255, 174, 85, .3); }
 .task-card.task-complete { border-color: rgba(59, 210, 154, .3); }
 .task-card.task-failed { border-color: rgba(255, 90, 124, .3); }
