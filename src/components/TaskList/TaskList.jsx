@@ -7,7 +7,7 @@ import CompleteTask from './CompleteTask'
 const TaskList = ({data}) => {
   // console.log(data)
   return (
-    <div id='TaskList' className='h-[55%] mt-10 flex overflow-x-auto  justify-start items-center gap-5 flex-nowrap  w-full py-5'>
+    <div id='TaskList' className='task-list hide-scrollbar'>
         {data.tasks.map((elem,idx )=>{
           if(elem.active){
             return <AcceptTask key={idx} data = {elem} />

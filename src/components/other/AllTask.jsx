@@ -1,33 +1,35 @@
 import React, { useContext } from 'react'
+import { FaUsers } from 'react-icons/fa'
 import { Authcontext } from '../../context/AuthProvider'
 
 const AllTask = () => {
-  const [UserData,setUserData] = useContext(Authcontext)
-    
-  return (
-    <div className='bg-[#1c1c1c] p-5 rounded h-[85%] '>
-       <div className='bg-red-400 mb-4 py-10 text-2xl px-14 flex justify-between items-center rounded-xl'>
-        <h2 className=' w-1/5'>Employee Name</h2>
-        <h3 className=' w-1/5'>New Task</h3>
-        <h5 className=' w-1/5'>Active Task</h5>
-        <h5 className=' w-1/5'>Completed</h5>
-        <h5 className=' w-1/5'>Failed</h5>
-         </div>
-     <div className='h-[80%]  hide-scrollbar'>
-       {UserData.map((elem,idx)=>{
-        return <div key={idx} className=' mb-4 py-4 px-14 text-xl flex justify-between font-medium items-center rounded border-2 border-emerald-500'>
-                    <h2 className=' w-1/5'>{elem.firstName}</h2>
-                    <h3 className=' w-1/5 text-orange-500'>{elem.taskCounts.newTask}</h3>
-                    <h5 className=' w-1/5 text-green-500'>{elem.taskCounts.active}</h5>
-                    <h5 className=' w-1/5 text-white'>{elem.taskCounts.completed}</h5>
-                    <h5 className=' w-1/5 text-red-400'>{elem.taskCounts.failed}</h5>
-               </div>
+  const [UserData] = useContext(Authcontext)
 
-      })}
-     </div>
-        
-        
-    </div>
+  return (
+    <section className="all-task-panel">
+      <div className="all-task-heading">
+        <h2>Team task overview</h2>
+        <span className="metric-icon"><FaUsers /></span>
+      </div>
+      <div className="table-head">
+        <span>Employee Name</span>
+        <span>New Task</span>
+        <span>Active</span>
+        <span>Completed</span>
+        <span>Failed</span>
+      </div>
+      <div className="employee-list hide-scrollbar">
+        {UserData.map((elem, idx) => (
+          <div key={idx} className="employee-row">
+            <strong>{elem.firstName}</strong>
+            <span className="count-new">{elem.taskCounts.newTask}</span>
+            <span className="count-active">{elem.taskCounts.active}</span>
+            <span className="count-completed">{elem.taskCounts.completed}</span>
+            <span className="count-failed">{elem.taskCounts.failed}</span>
+          </div>
+        ))}
+      </div>
+    </section>
   )
 }
 

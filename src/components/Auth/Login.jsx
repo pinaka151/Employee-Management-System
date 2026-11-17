@@ -1,54 +1,86 @@
 import React, { useState } from 'react'
+import {
+  FaArrowRight,
+  FaBolt,
+  FaChartLine,
+  FaClipboardList,
+  FaEnvelope,
+  FaLock,
+  FaShieldAlt,
+  FaUsers,
+} from 'react-icons/fa'
 
-const Login = ({handlelogin}) => {
+const Login = ({ handlelogin }) => {
+  const [Email, SetEmail] = useState('')
+  const [Pass, SetPassword] = useState('')
 
-
-
-const[Email,SetEmail] = useState('')
-const[Pass,SetPassword] = useState('')
-
-
-
-  const SubmitHandler = (e)=>{
+  const SubmitHandler = (e) => {
     e.preventDefault()
-    handlelogin(Email,Pass)
-    // console.log("Email is : ",Email)
-    // console.log("Password is : ",Pass)
-
-    SetEmail("")
-    SetPassword("")
+    handlelogin(Email, Pass)
+    SetEmail('')
+    SetPassword('')
   }
 
   return (
-    <div className='border-1 border-white flex h-screen w-screen firstImage  justify-center  items-center'>
-      <div className="border-2 w-2xl h-[40] img rounded-2xl bg-[#111]  border-emerald-600 flex justify-center items-center py-40">
-        <form onSubmit={(e)=>{
-           SubmitHandler(e)
-        }} className='flex flex-col items-center justify-center gap-3'>
-          <input
-          value={Email}
-          onChange={(e)=>{
-            SetEmail(e.target.value)       
-            }}
-          required
-            className="border-2 outline-none  border-emerald-600 text-xl px-5 py-3  rounded-full placeholder:text-gray-300"
-            type="text"
-            placeholder='Enter Your Email'
-          />
-          <input
-          value={Pass}
-          onChange={(e)=>{
-             SetPassword(e.target.value)
-          }}
-          required
-            className="border-2 outline-none border-emerald-600 text-xl mt-3 px-5 p-3 rounded-full placeholder:text-gray-300"
-            type="password"
-            placeholder='Enter Password'
-          />
-          <button className='  input mt-5  w-[100%] border-none p-2.5 text-gray-100 cursor-pointer rounded-[18px] outline-none bg-emerald-600 text-xl'> Log In </button>
-        </form>
+    <main className="login-page">
+      <div className="login-brand">
+        <span className="brand-mark"><FaUsers /></span>
+        <span>Employee Management System</span>
       </div>
-    </div>
+
+      <section className="login-content">
+        <div className="login-glow" />
+        <div className="hero-illustration" aria-hidden="true">
+          <div className="illustration-window">
+            <FaClipboardList size={58} />
+            <div className="illustration-lines"><i /><i /><i /></div>
+          </div>
+        </div>
+        <div className="hero-copy">
+          <span className="eyebrow">Welcome back! <span aria-hidden="true">👋</span></span>
+          <h1>Manage Your Team <span>Smarter &amp; Faster</span></h1>
+          <p>A modern solution for employee and task management, built to help your team stay focused and productive.</p>
+          <div className="feature-list">
+            <span className="feature-chip"><FaBolt /> Boost productivity</span>
+            <span className="feature-chip"><FaShieldAlt /> Secure &amp; reliable</span>
+            <span className="feature-chip"><FaChartLine /> Track progress</span>
+          </div>
+        </div>
+      </section>
+
+      <section className="login-panel">
+        <span className="brand-mark"><FaUsers /></span>
+        <h2>Login to your account</h2>
+        <p>Enter your credentials to continue</p>
+        <form onSubmit={SubmitHandler} className="login-form">
+          <label className="login-field">
+            <FaEnvelope />
+            <input
+              value={Email}
+              onChange={(e) => SetEmail(e.target.value)}
+              required
+              type="text"
+              placeholder="Email ID"
+              aria-label="Email ID"
+            />
+          </label>
+          <label className="login-field">
+            <FaLock />
+            <input
+              value={Pass}
+              onChange={(e) => SetPassword(e.target.value)}
+              required
+              type="password"
+              placeholder="Password"
+              aria-label="Password"
+            />
+          </label>
+          <button type="submit" className="login-submit">
+            Log In <FaArrowRight />
+          </button>
+        </form>
+      </section>
+    </main>
   )
 }
 

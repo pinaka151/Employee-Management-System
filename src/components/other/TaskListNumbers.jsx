@@ -1,26 +1,26 @@
 import React from 'react'
+import { FaBolt, FaCheck, FaCheckCircle, FaTimesCircle } from 'react-icons/fa'
 
-const TaskListNumbers = ({data}) => {
+const TaskListNumbers = ({ data }) => {
+  const metrics = [
+    { key: 'newTask', label: 'New Task', icon: <FaBolt />, className: 'metric-new' },
+    { key: 'active', label: 'Accepted Task', icon: <FaCheck />, className: 'metric-active' },
+    { key: 'completed', label: 'Completed Task', icon: <FaCheckCircle />, className: 'metric-completed' },
+    { key: 'failed', label: 'Failed Task', icon: <FaTimesCircle />, className: 'metric-failed' },
+  ]
+
   return (
-    <div className='flex mt-15 justify-evenly gap-5 screen '>
-        <div className=' rounded-xl py-6 px-9 w-[45%] bg-blue-400'>
-            <h2 className='text-3xl font-semibold'>{data.taskCounts.newTask}</h2>
-            <h3 className='text-xl font-medium'>New Task</h3>
+    <section className="metrics-grid" aria-label="Task summary">
+      {metrics.map(({ key, label, icon, className }) => (
+        <div key={key} className={`metric-card ${className}`}>
+          <div className="metric-heading">
+            <span>{label}</span>
+            <span className="metric-icon">{icon}</span>
+          </div>
+          <strong>{data.taskCounts[key]}</strong>
         </div>
-        
-        <div className=' rounded-xl py-6 px-9 w-[45%] bg-purple-400'>
-            <h2 className='text-3xl font-semibold'>{data.taskCounts.active}</h2>
-            <h3 className='text-xl font-medium'>Accepted Task</h3>
-        </div>
-        <div className=' rounded-xl py-6 px-9 w-[45%] bg-green-400'>
-            <h2 className='text-3xl font-semibold'>{data.taskCounts.completed}</h2>
-            <h3 className='text-xl font-medium'>Completed Task</h3>
-        </div>
-        <div className=' rounded-xl py-6 px-9 w-[45%] bg-red-400'>
-            <h2 className='text-3xl font-semibold'>{data.taskCounts.failed}</h2>
-            <h3 className='text-xl font-medium'>Failed Task</h3>
-        </div>
-    </div>
+      ))}
+    </section>
   )
 }
 
